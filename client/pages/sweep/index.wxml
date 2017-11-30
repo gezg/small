@@ -1,0 +1,9 @@
+<!--pages/sweep/index.wxml-->
+<view class="container">
+    <view class="page-section">
+        <view class="weui-cell__bd">{{result}}</view>
+    </view>
+    <view class="page-section btn">
+            <button type="default" bindtap="scanCode">扫描二维码</button>
+    </view>
+</view>

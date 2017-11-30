@@ -1,0 +1,16 @@
+<!--获取验证码-->
+<view class="container">
+
+    <view class="page-section">
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__bd">
+                    <input class="weui-input" name="input" placeholder="输入验证码" />
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="page-section btn">
+        <button type="primary" bindtap="nextNode">确定</button>
+    </view>
+</view>

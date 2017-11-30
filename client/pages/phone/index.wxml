@@ -1,0 +1,9 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="phone bg-gradient">
+        <view class="phone-container">
+            <view class="phone-bg"></view>
+            <view class="phone-content"></view>
+        </view>
+    </view>
+</view>

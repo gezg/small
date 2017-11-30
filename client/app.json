@@ -1,0 +1,16 @@
+{
+  "pages":[
+    "pages/phone/index",
+    "pages/index/index",
+    "pages/addCgi/addCgi",
+    "pages/verification/index",
+    "pages/sweep/index"
+  ],
+  "window":{
+    "backgroundColor":"#F6F6F6",
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "transparent",
+    "navigationBarTitleText": "手机号码验证",
+    "navigationBarTextStyle":"black"
+  }
+}
