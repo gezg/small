@@ -1,73 +1,59 @@
+var waves = require('../../vendor/libs/siriwave.js')
 // pages/phone/index.js
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-  
-  },
+    /**
+     * 页面的初始数据
+     */
+    data: {
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
-  },
+    },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-      console.log(document.querySelector('.bg-gradien'))
-    //   var SW = new SiriWave({
-    //       container: '',
-    //       width: 540,
-    //       height: 150
-    //   });
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
 
-    //   SW.start();
-  },
+    },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function () {
+        let _this = this;
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
+        _this.opt = {
+            phase : 0
+        }
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
+        wx.getSystemInfo({
+            success(res) {
+                //获取手机系统信息
+                _this.width = res.windowWidth + 5;
+                _this.height = res.windowHeight;
+                _this.step = 0;
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
+                _this.drawWaves();
+                _this.interval = setInterval(_this.drawWaves, 17)
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
+            }
+        });
+    },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
+    drawWaves: function () {
+        let _this = this;
+        let context = wx.createContext();
+        //设置波浪线路径
+        waves.set(context, _this.width);
+        //获取当前context上存储的绘图动作
+        let actions = context.getActions();
+        //绘制
+        wx.drawCanvas({
+            canvasId: 'canvas',
+            actions: actions
+        })
+    },
+    onUnload: function () {
+        clearInterval(this.interval)
+    }
 })
