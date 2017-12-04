@@ -6,7 +6,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        btnText: '下一步',
+        placeholderText: '请输入手机号码'
     },
 
     /**
@@ -51,6 +52,12 @@ Page({
         wx.drawCanvas({
             canvasId: 'canvas',
             actions: actions
+        })
+    },
+    nextStep: function(){
+        this.setData({
+            btnText: '确定',
+            placeholderText: '输入验证码'
         })
     },
     onUnload: function () {

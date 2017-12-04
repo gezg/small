@@ -1,7 +1,7 @@
 var canvas = {
-    k: .4,
-    f: 12,
-    speed: .03,
+    k: .4,      //弯度
+    f: 12,  
+    speed: .01, //速度, 越低越慢
     noise: 25,
     phase: 0,
     width: 0,
@@ -47,8 +47,9 @@ canvas.drawLine = function(context ,attenuation) {
 
             context.save();
             const grd = context.createCircularGradient(x, y, 10)
-            grd.addColorStop(0, 'red')
-            grd.addColorStop(1, 'white')
+            grd.addColorStop(0, 'rgba(222, 159, 255, 1)')
+            grd.addColorStop(0.7, 'rgba(222, 159, 255,1)')
+            grd.addColorStop(1, 'rgba(222, 159, 255, 0.3)')
             context.setFillStyle(grd);
 
             context.arc(x, y, 10, 0, Math.PI * 2, true);

@@ -8,4 +8,10 @@
         <canvas class="canvas-element" canvas-id="canvas"></canvas>
     </view>
     <view class="bg-radian"></view>
+    <view class="form-section">
+         <input  maxlength="10" placeholder="{{placeholderText}}" />
+         <view class="btn-container" bindtap='nextStep'>
+            <view class="btn">{{btnText}}</view>
+         </view> 
+    </view>
 </view>
