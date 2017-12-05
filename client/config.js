@@ -3,7 +3,7 @@
  */
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
-var host = 'https://kmdtewgk.qcloud.la';
+var host = 'https://yg2wkyhf.qcloud.la';
 
 var config = {
 
@@ -21,9 +21,7 @@ var config = {
         tunnelUrl: `${host}/weapp/tunnel`,
 
         // 上传图片接口
-        uploadUrl: `${host}/weapp/upload`,
-
-        getList: 'http://192.168.220.105:7080/server/getList.action'
+        uploadUrl: `${host}/weapp/upload`
     }
 };
 

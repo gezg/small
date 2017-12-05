@@ -1,21 +1,9 @@
-@import "../../vendor/common/weui.wxss";
 /**index.wxss**/
 page {
     background: #F6F6F6;
     display: flex;
-    height: 100%;
     flex-direction: column;
     justify-content: flex-start;
-}
-
-.page-section{
-  width: 90%;
-  margin-bottom: 60rpx;
-  margin-top: 60rpx;
-}
-
-.page-section.btn{
-    margin-top: 0;
 }
 
 .userinfo, .uploader, .tunnel {

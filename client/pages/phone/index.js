@@ -1,4 +1,4 @@
-var waves = require('../../vendor/libs/siriwave.js')
+var waves = require('../../vendor/siriwave.js')
 // pages/phone/index.js
 Page({
 
@@ -55,6 +55,12 @@ Page({
         })
     },
     nextStep: function(){
+        if (this.data.btnText == '确定'){
+            wx.navigateTo({
+                url: '../index/index',
+            })
+            return false;
+        }
         this.setData({
             btnText: '确定',
             placeholderText: '输入验证码'
