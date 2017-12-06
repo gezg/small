@@ -7,9 +7,11 @@ Page({
      * 页面的初始数据
      */
     data: {
-        btnText: '下一步',
-        placeholderText: '请输入手机号码',
-        inputValue: ''
+        btnText: '确定',
+        placeholderText: '输入验证码',
+        inputValue: '',
+        validMsg: '获取验证码',
+        sendClass: ''
     },
 
     /**
@@ -24,7 +26,7 @@ Page({
      */
     onReady: function () {
         let _this = this;
-
+        _this.total = 60;
         _this.opt = {
             phase : 0
         }
@@ -56,41 +58,46 @@ Page({
             actions: actions
         })
     },
-    nextStep: function(){
-        if (this.isPhoneNum(this.data.inputValue)){
+    getValid: function(){
+        let _this = this;
+        if (_this.total == 60){
             const App = getApp();
-            App.globalData.phone = this.data.inputValue;
-            wx.navigateTo({
-                url: '../valid/index',
-            });
-        }else{
-            util.showModel('错误提示' ,'手机号码格式不正确');
+            util.showSuccess(App.globalData.phone);
+            //发送验证码成功后,后台返回手机验证码
+            _this.validTimer = setInterval(function () {
+                _this.counter();
+            }, 1000);
         }
     },
-    bindKeyInput: function (e) {
+    counter: function (){
+        let _this = this;
+        _this.setData({
+            validMsg: '重新获取' + _this.total,
+            sendClass: 'active'
+        });
+        _this.total--;
+        if (!_this.total){
+            _this.total = 60;
+            clearInterval(_this.validTimer);
+            _this.setData({
+                validMsg: '获取验证码',
+                sendClass: ''
+            });
+        }
+    },
+    bindKeyInput: function(e){
         this.setData({
             inputValue: e.detail.value
         })
     },
-    /**
-     * 
-     * @desc   判断是否为手机号
-     * @param  {String|Number} str 
-     * @return {Boolean} 
-     */
-    isPhoneNum: function(str){
-        return /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(str);
+    ok: function(){
+        //确定用户有输入后,发送注册请求
+        if (this.data.inputValue){
+            //TODO
+            util.showSuccess('发送注册请求');
+        }
     },
     onUnload: function () {
         clearInterval(this.interval)
-    },
-    onShareAppMessage: function(){
-        return {
-            title: '自定义转发标题',
-            path: 'pages/valid/index',
-            success: function (res) {
-                util.showSuccess('转发成功');
-            }
-        }
     }
 })

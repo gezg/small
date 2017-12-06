@@ -9,8 +9,11 @@
     </view>
     <view class="bg-radian"></view>
     <view class="form-section">
-         <input type="number" confirm-type="go" bindinput="bindKeyInput" placeholder="{{placeholderText}}" />
-         <view class="btn-container" bindtap='nextStep'>
+         <view class="vaild">
+            <input type="number" confirm-type="go" bindinput="bindKeyInput" placeholder="{{placeholderText}}" />
+            <label class="text {{sendClass}}" bindtap='getValid'>{{validMsg}}</label>
+         </view>
+         <view class="btn-container" bindtap='ok'>
             <view class="btn">{{btnText}}</view>
          </view> 
     </view>

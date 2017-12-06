@@ -1,0 +1,19 @@
+/* pages/phone/index.wxss */
+
+
+.vaild{
+    position: relative;
+}
+
+.vaild .text{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 8rpx;
+    color: #303030;
+    z-index: 1111;
+}
+
+.vaild .text.active{
+    color: #999;
+}
