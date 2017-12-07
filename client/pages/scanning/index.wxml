@@ -1,2 +1,21 @@
 <!--pages/scanning/index.wxml-->
-<text>pages/scanning/index.wxml</text>
+<gezg>
+    <view class="container">
+        <view class="bg-container">
+            <view class="triangle-bg triangle triangle-left"></view>
+            <view class="triangle-left-text">
+                <text>血液循环通畅\n改善腰酸背痛\n还能提高睡眠质量</text>
+                <view class="icon-seat"></view>
+            </view>
+            <view class="seat-bg seat"></view>
+            <view class="triangle-bg triangle triangle-right"></view>
+            <view class="triangle-right-text">
+                <text>Blood circulation\nunobstructed\nImprovement of\nback pain of lo</text>
+                <view class="icon-seat"></view>
+            </view>
+        </view>
+        <view class="btn-container" bindtap='ok'>
+            <view class="btn">扫描体验</view>
+        </view> 
+    </view>
+</gezg>

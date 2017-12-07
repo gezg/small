@@ -1,1 +1,63 @@
 /* pages/scanning/index.wxss */
+@import '../../vendor/base64.wxss';
+
+.bg-container{
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.triangle ,.seat{
+    position: absolute;
+    z-index: 1;
+}
+
+.triangle{
+    height: 650rpx;
+    width:650rpx;
+}
+
+.triangle-left{
+    top: 60rpx;
+    left: -100px;
+    transform: rotate(-45deg)
+}
+.triangle-left-text, .triangle-right-text{
+    position: absolute;
+    z-index: 1;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+}
+.triangle-left-text{
+    left: 20rpx;
+    top: 240rpx;
+}
+.triangle-right{
+    top: 320rpx;
+    right: -100px;
+}
+.triangle-right-text{
+    top: 500rpx;
+    right: 10rpx;
+}
+.seat{
+    top: 140rpx;
+    left: 50%;
+    margin-left: -245rpx;
+    height: 850rpx;
+    width: 550rpx;
+    z-index: 2;
+}
+
+.icon-seat{
+    width: 105rpx;
+    height: 105rpx;
+    margin-top: 30rpx;
+    margin-left: 50rpx;
+}
+
+.btn-container{
+    position: fixed;
+    bottom: 156rpx;
+}

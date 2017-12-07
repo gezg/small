@@ -95,6 +95,9 @@ Page({
         if (this.data.inputValue){
             //TODO
             util.showSuccess('发送注册请求');
+            wx.navigateTo({
+                url: '../scanning/index',
+            })
         }
     },
     onUnload: function () {

@@ -1,10 +1,10 @@
 {
   "pages":[
+    "pages/scanning/index",
     "pages/phone/index",
     "pages/valid/index",
     "pages/index/index",
     "pages/addCgi/addCgi",
-    "pages/scanning/index",
     "pages/control/index"
   ],
   "window":{

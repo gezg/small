@@ -1,17 +1,19 @@
 <!--index.wxml-->
-<view class="container">
-    <view class="phone bg-gradient">
-        <view class="phone-container">
-            <view class="phone-bg"></view>
-            <view class="phone-content"></view>
+<gezg>
+    <view class="container">
+        <view class="phone bg-gradient">
+            <view class="phone-container">
+                <view class="phone-bg"></view>
+                <view class="phone-content"></view>
+            </view>
+            <canvas class="canvas-element" canvas-id="canvas"></canvas>
         </view>
-        <canvas class="canvas-element" canvas-id="canvas"></canvas>
+        <view class="bg-radian"></view>
+        <view class="form-section">
+            <input type="number" confirm-type="go" bindinput="bindKeyInput" placeholder="{{placeholderText}}" />
+            <view class="btn-container" bindtap='nextStep'>
+                <view class="btn">{{btnText}}</view>
+            </view> 
+        </view>
     </view>
-    <view class="bg-radian"></view>
-    <view class="form-section">
-         <input type="number" confirm-type="go" bindinput="bindKeyInput" placeholder="{{placeholderText}}" />
-         <view class="btn-container" bindtap='nextStep'>
-            <view class="btn">{{btnText}}</view>
-         </view> 
-    </view>
-</view>
+</gezg>
