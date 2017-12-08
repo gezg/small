@@ -14,8 +14,8 @@
                 <view class="icon-seat"></view>
             </view>
         </view>
-        <view class="btn-container" bindtap='ok'>
-            <view class="btn">扫描体验</view>
+        <view class="btn-container">
+            <view class="btn" bindtap='scanningCode'>扫描体验</view>
         </view> 
     </view>
 </gezg>

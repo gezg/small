@@ -22,7 +22,7 @@ Page({
 
     },
 
-    ok: function(){
+    scanningCode: function(){
         wx.scanCode({
             success: function (res) {
                 wx.showModal({

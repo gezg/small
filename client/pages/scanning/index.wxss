@@ -60,4 +60,5 @@
 .btn-container{
     position: fixed;
     bottom: 156rpx;
+    z-index: 10;
 }

@@ -116,3 +116,7 @@ gezg{
     border-radius: 17px;
     color: #303030;
 }
+
+.btn-container .btn:active{
+    background: #eee;
+}
