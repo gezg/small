@@ -1,1 +1,13 @@
 /* pages/control/index.wxss */
+
+.tunnel{
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tunnel textarea{
+    margin-top: 40rpx;
+    margin-bottom: 40rpx;
+    border: 1px dashed #ccc;
+}
