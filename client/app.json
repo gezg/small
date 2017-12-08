@@ -1,7 +1,7 @@
 {
   "pages":[
-    "pages/scanning/index",
     "pages/phone/index",
+    "pages/scanning/index",
     "pages/valid/index",
     "pages/index/index",
     "pages/addCgi/addCgi",
