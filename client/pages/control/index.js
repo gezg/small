@@ -1,108 +1,116 @@
 const socketOpen = require('../../utils/socket.js');
-var util = require('../../utils/util.js');
-var Tunnel = require('../../vendor/wafer2-client-sdk/index').Tunnel;
-// pages/control/index.js
-let socket = null;
+const util = require('../../utils/util.js');
+const Tunnel = require('../../vendor/wafer2-client-sdk/index').Tunnel;
+
+let addState = false, messageQueue = [];
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        tunnelStatus: '' ,
-        message: '58 46 5a 11 05 01 D8 B0 4C D4 AC AC FF FF 45 4e 44'
+        socketStatus: '',
+        message: '',
+        txt: [],
+        dis: ''
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-
+    onReady() {
+        this.socket = socketOpen('ws://47.94.148.33', {
+            autoConnect: false
+        });
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-        // socket = socketOpen('wss://yg2wkyhf.ws.qcloud.la/qcloud/ws?tunnelId=e5f2c376-f70c-4908-ba88-e3b8a6d62be1&tcId=00bb398d527ee89be442c13708ce6542');
-        // console.log(socket);
-
-
-    
-    },
-    bindKeyInput(e){
+    bindKeyInput(e) {
         this.setData({
             message: e.detail.value
         })
     },
-    openTunnel(){
-        util.showBusy('信道连接中...')
-        // 创建信道，需要给定后台服务地址
-        var tunnel = this.tunnel = new Tunnel('https://yg2wkyhf.qcloud.la/weapp/tunnel')
-
-        // 监听信道内置消息，包括 connect/close/reconnecting/reconnect/error
-        tunnel.on('connect', () => {
-            util.showSuccess('重连成功');
-            console.log('WebSocket 信道已连接')
-            this.setData({ tunnelStatus: 'connected' })
-        })
-
-        tunnel.on('close', () => {
-            console.log('WebSocket 信道已断开')
-            this.setData({ tunnelStatus: 'closed' })
-        })
-
-        tunnel.on('reconnecting', () => {
-            console.log('WebSocket 信道正在重连...')
-
-        })
-
-        tunnel.on('reconnect', () => {
-            console.log('WebSocket 信道重连成功')
-        })
-
-        tunnel.on('error', error => {
-            console.error('信道发生错误：', error)
-        })
-
-        // 监听自定义消息（服务器进行推送）
-        tunnel.on('gezg', speak => {
-            console.log('收到说话消息：', speak)
-        })
-
-        // 打开信道
-        tunnel.open()
-
-        this.setData({ tunnelStatus: 'connecting' })
-    },
     /**
      * 切换开关
      */
-    switchChange(e){
+    switchChange(e) {
         var checked = e.detail.value
         if (checked) {
-            this.openTunnel()
+            this.openSocket()
         } else {
-            this.closeTunnel()
+            this.closeSocket()
+        }
+    },
+    addUser(){
+        if (!addState && this.socket && this.socket.connected){
+            this.socket.emit('add user', 'wx智慧车');
+            addState = true;
+            this.setData({
+                dis: 'dis'
+            })
         }
     },
     /**
      * 发送消息
      */
-    sendMessage(){
-        if (!this.data.tunnelStatus || !this.data.tunnelStatus === 'connected') return false;
-        // 使用 tunnel.isActive() 来检测当前信道是否处于可用状态
-        if (this.tunnel && this.tunnel.isActive()) {
-            // 使用信道给服务器推送「speak」消息
-            this.tunnel.emit('speak', {
-                'word': this.data.message
+    sendMessage() {
+        if (this.data.message && this.socket && this.socket.connected){
+            this.setTextObj({
+                message: this.data.message
+            });
+            this.socket.emit('new message', this.data.message);
+            this.setData({
+                message: ''
             });
         }
     },
-    closeTunnel(){
-        if (this.tunnel) {
-            this.tunnel.close();
+    addEvent() {
+        let _this = this;
+        //连接服务端成功
+        this.socket.on('connect', function () {
+            util.showSuccess('连接成功');
+        });
+
+        /**
+         * 接收到服务端发来新的信息触发
+         */
+        this.socket.on('new message', function (data) {
+            _this.setTextObj(data);
+        });
+
+        //连接失败
+        this.socket.on('connect_error', function (data) {
+            util.showSuccess('连接失败');
+        });
+         //连接超时
+        this.socket.on('connect_timeout', function (data) {
+            util.showSuccess('连接超时');
+        });
+        //连接错误
+        this.socket.on('error', function (data) {
+            util.showSuccess('连接错误');
+        });
+        //断开连接
+        this.socket.on('disconnect', function () {
+            util.showSuccess('socket断开连接');
+        });
+
+        //重新连接失败
+        this.socket.on('reconnect_error', function () {
+            util.showSuccess('重新连接失败');
+        });
+    },
+    openSocket() {
+        util.showBusy('信道连接中...')
+        this.socket.open();
+        this.addEvent();
+        this.setData({ socketStatus: 'connect' })
+    },
+    closeSocket() {
+        if (this.socket) {
+            wx.closeSocket();
         }
-        this.setData({ tunnelStatus: 'closed' })
+        this.setData({ socketStatus: 'closed' })
+    },
+    setTextObj(data) {
+        messageQueue.push(data.message);
+        this.setData({
+            txt: messageQueue.join('\n')
+        });
     }
 })

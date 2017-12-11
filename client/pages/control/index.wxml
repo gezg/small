@@ -1,13 +1,17 @@
 <!--pages/control/index.wxml-->
 <view class="tunnel">
     <view class="tunnel-text">
-        <text>Socket</text>
+        <text>开启聊天室</text>
         <switch class="tunnel-switch" bindchange="switchChange" color="#007AFF"/>
     </view>
     <view class="section">
-        <textarea placeholder="在这里写要发送给服务端scoket的消息" auto-focus value="{{message}}" bindinput="bindKeyInput"/>
+        <textarea placeholder="在这里写要发送给服务端scoket的消息 ,可直接在www.gezh.top上查看同步" auto-focus value="{{message}}" bindinput="bindKeyInput"/>
+        <text style='margin-bottom:10px;'>{{txt}}</text>
     </view>
-    <view class="btn-container">
+    <view class="btn-container {{dis}}" style="margin-bottom:10px;">
+        <view class="btn" bindtap="addUser">加入聊天</view>
+    </view> 
+    <view class="btn-container" style='display: {{dis ? "" : "none"}}'>
         <view class="btn" bindtap="sendMessage">发送消息</view>
     </view> 
 </view>

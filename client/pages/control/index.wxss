@@ -11,3 +11,6 @@
     margin-bottom: 40rpx;
     border: 1px dashed #ccc;
 }
+.btn-container.dis{
+    display: none;
+}
