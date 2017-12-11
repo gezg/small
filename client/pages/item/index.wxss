@@ -1,0 +1,146 @@
+/* pages/item/index.wxss */
+@import '../../vendor/base64.wxss';
+
+.footer-btn{
+    width: 100%;
+    flex-basis: 100rpx;
+    background-color: #3b3b3b;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main{
+    width:100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.seat-container{
+    position: relative;
+    flex-basis: 850rpx;
+    width: 550rpx;
+    height: 850rpx;
+    margin-right: 50rpx;
+    margin-bottom: -50rpx;
+}
+.card-btns{
+    flex: 1;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-btns .card-wrap{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.card-btns .card-btn{
+    padding-top: 10rpx;
+    width: 125rpx;
+    height: 125rpx;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 2px 2px 20px #ccc;
+    box-sizing: border-box;
+}
+
+.card-btns .card-icon{
+    margin-left: 32rpx;
+    width: 60rpx;
+    height: 60rpx;
+    font-size: 60rpx;
+}
+
+.card-btns .card-text{
+    font-size: 28rpx;
+}
+.card-btns .card-btn.active{
+    color: #095497;
+}
+
+.seat-container.active .left-top ,.seat-container.active .right-top{
+    animation: luminous 2s infinite;
+}
+
+.seat-container.active .left-bottom ,.seat-container.active .right-bottom{
+    animation: luminous-bottom 2s infinite;
+}
+
+.circle {
+    position: absolute;
+    width: 100rpx;
+    height: 100rpx;
+    border: 1px solid #4d4d4d;
+    border-radius: 50%;
+    box-sizing: border-box;
+    transform: scale(.8);
+}
+
+.circle:before {
+    content: "";
+    display: block;
+    width: 140rpx;
+    height: 140rpx;
+    position: absolute;
+    left: -24rpx;
+    top: -24rpx;
+    border: 1px solid #4d4d4d;
+    border-radius: 50%;
+}
+
+.circle:after {
+    content: "";
+    display: block;
+    width: 50rpx;
+    height: 50rpx;
+    position: absolute;
+    left: 21rpx;
+    top: 21rpx;
+    border: 1px solid #4d4d4d;
+    border-radius: 50%;
+}
+
+.left-top ,.right-top{
+    top: 190rpx;
+}
+.left-top ,.left-bottom{
+    left: 85rpx;
+}
+.right-top ,.right-bottom{
+    right: 170rpx;
+}
+.left-bottom ,.right-bottom{
+    bottom: 280rpx;
+    transform: scale(1.1);
+}
+
+@keyframes luminous{
+    form{
+        transform: scale(.8);
+    }
+    50%{
+        transform: scale(1);
+    }
+    to{
+        transform: scale(.8);
+    }
+}
+@keyframes luminous-bottom{
+    form{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.35);
+    }
+    to{
+        transform: scale(1);
+    }
+}

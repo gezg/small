@@ -16,7 +16,7 @@ Page({
         dis: ''
     },
     onReady() {
-        this.socket = socketOpen('ws://47.94.148.33', {
+        this.socket = socketOpen('ws://www.gezg.top', {
             autoConnect: false
         });
     },
@@ -77,10 +77,21 @@ Page({
         this.socket.on('connect_error', function (data) {
             util.showSuccess('连接失败');
         });
-         //连接超时
+        //连接超时
         this.socket.on('connect_timeout', function (data) {
             util.showSuccess('连接超时');
         });
+        //连接无效
+        this.socket.on('reconnect_failed', function (data) {
+            util.showSuccess('连接无效');
+        });
+        //重新连接
+        this.socket.on('reconnecting', function (data) { 
+            //可以添加一个计数器, 判断重新连接超过6次后提示用户
+            //if (global.reconnectFailCount >= 6) {  
+                util.showSuccess('连接服务器失败，请检查您当前的网络');
+            //}  
+        });  
         //连接错误
         this.socket.on('error', function (data) {
             util.showSuccess('连接错误');
@@ -89,10 +100,17 @@ Page({
         this.socket.on('disconnect', function () {
             util.showSuccess('socket断开连接');
         });
-
         //重新连接失败
         this.socket.on('reconnect_error', function () {
             util.showSuccess('重新连接失败');
+        });
+        //ping
+        this.socket.on('ping', function(data){
+            console.log(' - ping' + data);
+        });
+        //pong
+        this.socket.on('pong', function(data){
+            console.log(' - pong' + data);
         });
     },
     openSocket() {

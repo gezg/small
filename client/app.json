@@ -1,8 +1,9 @@
 {
   "pages":[
+    "pages/item/index",
+    "pages/scanning/index",
     "pages/control/index",
     "pages/phone/index",
-    "pages/scanning/index",
     "pages/valid/index",
     "pages/index/index",
     "pages/addCgi/addCgi"
