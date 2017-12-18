@@ -7,6 +7,8 @@ App({
         qcloud.setLoginUrl(config.service.loginUrl)
     },
     globalData: {
-        phone: null
+        phone: null,
+        openid: null,
+        session_key: null
     }
 })

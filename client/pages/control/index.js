@@ -1,6 +1,5 @@
 const socketOpen = require('../../utils/socket.js');
 const util = require('../../utils/util.js');
-const Tunnel = require('../../vendor/wafer2-client-sdk/index').Tunnel;
 
 let addState = false, messageQueue = [];
 
@@ -114,7 +113,7 @@ Page({
         });
     },
     openSocket() {
-        util.showBusy('信道连接中...')
+        util.showBusy('Socket连接中...')
         this.socket.open();
         this.addEvent();
         this.setData({ socketStatus: 'connect' })

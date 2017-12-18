@@ -1,5 +1,6 @@
 var waves = require('../../vendor/siriwave.js');
-var util = require('../../utils/util.js')
+var util = require('../../utils/util.js');
+const App = getApp();
 // pages/phone/index.js
 Page({
 
@@ -61,8 +62,25 @@ Page({
     getValid: function(){
         let _this = this;
         if (_this.total == 60){
-            const App = getApp();
-            util.showSuccess(App.globalData.phone);
+          wx.request({
+            //获取openid接口  
+            url: 'http://47.92.37.228:1024/remoteseat/index.php?mod=mobile&name=shopwap&do=sms',
+            method: 'GET',
+            data: {
+              phone: App.globalData.phone
+            },
+            success: function (res) {
+              if (res.data.data == '1'){
+                util.showSuccess('发送成功');
+              }else{
+                util.showModel('服务器返回' ,res.data.msg);
+              }
+            },
+            fail: function (err) {
+              util.showSuccess('短信发送失败！');
+            }
+          })
+           
             //发送验证码成功后,后台返回手机验证码
             _this.validTimer = setInterval(function () {
                 _this.counter();
@@ -92,7 +110,7 @@ Page({
     },
     ok: function(){
         //确定用户有输入后,发送注册请求
-        if (this.data.inputValue){
+      if (this.data.inputValue){
             //TODO
             util.showSuccess('发送注册请求');
             wx.navigateTo({

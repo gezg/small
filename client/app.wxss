@@ -69,8 +69,10 @@ gezg{
 
 .canvas-element{
     position: absolute;
+    left:0;
+    top:170rpx;
     width: 100%;
-    height: 120px;
+    height: 240rpx;
     z-index: 1;
 }
 

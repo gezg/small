@@ -6,7 +6,7 @@
                 <view class="phone-bg"></view>
                 <view class="phone-content"></view>
             </view>
-            <canvas class="canvas-element" canvas-id="canvas"></canvas>
+            <canvas class="canvas-element" canvas-id="canvas" style="top:{{}}"></canvas>
         </view>
         <view class="bg-radian"></view>
         <view class="form-section">

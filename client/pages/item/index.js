@@ -28,7 +28,22 @@
                 icon: 'toning'
             }
         ],
-        currType: 'type1'
+        modes: [
+            {
+                type: 'knead1',
+                name: '按摩',
+            },
+            {
+              type: 'knead2',
+              name: '通风',
+            },
+            {
+              type: 'knead3',
+              name: '加热',
+            }
+        ],
+        currType: 'type1',
+        currModeType: 'knead1'
     },
 
     /**
@@ -49,9 +64,16 @@
      */
     selectType(event){
         let currType = event.currentTarget.dataset.type;
-        this.setData({
-            currType: currType
-        })
+        let ctype = event.currentTarget.dataset.mode;
+        if (ctype == 'mode'){
+            this.setData({
+              currModeType: currType
+            })
+        }else{
+            this.setData({
+                currType: currType
+            })
+        }
     },
     /**
      * 开启关闭按摩

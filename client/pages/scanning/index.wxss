@@ -7,7 +7,7 @@
     width: 100%;
 }
 
-.triangle ,.seat{
+.triangle{
     position: absolute;
     z-index: 1;
 }
@@ -42,6 +42,7 @@
     right: 10rpx;
 }
 .seat{
+  position: relative;
     top: 140rpx;
     left: 50%;
     margin-left: -245rpx;
@@ -58,7 +59,6 @@
 }
 
 .btn-container{
-    position: fixed;
-    bottom: 156rpx;
+    bottom: -100rpx;
     z-index: 10;
 }

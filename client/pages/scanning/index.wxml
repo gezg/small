@@ -11,7 +11,7 @@
             <view class="triangle-bg triangle triangle-right"></view>
             <view class="triangle-right-text">
                 <text>Blood circulation\nunobstructed\nImprovement of\nback pain of lo</text>
-                <view class="iconfont icon-zyjr icon-seat"></view>
+                <view class="icon-seat"></view>
             </view>
         </view>
         <view class="btn-container">

@@ -1,5 +1,9 @@
 var waves = require('../../vendor/siriwave.js');
-var util = require('../../utils/util.js')
+var util = require('../../utils/util.js');
+var qcloud = require('../../vendor/wafer2-client-sdk/index');
+
+
+const App = getApp();
 // pages/phone/index.js
 Page({
 
@@ -16,7 +20,28 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+      //获取用户微信openid
+      util.getAuthorization().then((data)=>{
+        util.showSuccess('获取openid成功');
+        App.globalData.openid = data.openid;
+        App.globalData.session_key = data.session_key;
+        //向后台发送接口，判断用户是否已注册
+        //如已注册则直接跳到扫描二维码绑定页面或者按摩页面
+        //如未注册则保存openid和session即可留在当前页面
+        // wx.request({
+        //   //获取openid接口  
+        //   url: 'https://api.weixin.qq.com/sns/jscode2session',
+        //   method: 'GET',
+        //   data: {
+        //     openid: App.globalData.openid
+        //   },
+        //   success: function (res) {
+            
+        //   }
+        // })
+      }).catch((error)=>{
+        util.showSuccess(error);
+      })
     },
 
     /**
@@ -58,7 +83,6 @@ Page({
     },
     nextStep: function(){
         if (this.isPhoneNum(this.data.inputValue)){
-            const App = getApp();
             App.globalData.phone = this.data.inputValue;
             wx.navigateTo({
                 url: '../valid/index',

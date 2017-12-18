@@ -23,21 +23,24 @@ Page({
     },
 
     scanningCode: function(){
-        wx.scanCode({
-            success: function (res) {
-                wx.showModal({
-                    title: '扫描结果',
-                    content: res.result,
-                    showCancel: false
-                })
-            },
-            fail: function (res) {
-                wx.showModal({
-                    title: '扫描结果',
-                    content: '扫描失败',
-                    showCancel: false
-                })
-            }
-        })
+      wx.navigateTo({
+        url: '../item/index',
+      })
+        // wx.scanCode({
+        //     success: function (res) {
+        //         wx.showModal({
+        //             title: '扫描结果',
+        //             content: res.result,
+        //             showCancel: false
+        //         })
+        //     },
+        //     fail: function (res) {
+        //         wx.showModal({
+        //             title: '扫描结果',
+        //             content: '扫描失败',
+        //             showCancel: false
+        //         })
+        //     }
+        // })
     }
 })
