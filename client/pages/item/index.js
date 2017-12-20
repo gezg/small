@@ -1,6 +1,32 @@
     // pages/item/index.js
-    Page({
+var zhc = require('../../vendor/zhc.js');
+const util = require('../../utils/util.js');
 
+const modes = {
+    type1: {
+        send : '58 46 5a 11 05 01 D8 B0 4C D4 AC AC FF FF 45 4e 44',
+        reply: '58 46 5a 11 05 02 D8 B0 4C D4 AC AC FF FF 45 4e 44'
+    },
+    type2: {
+        send : '58 46 5a 11 05 03 D8 B0 4C D4 AC AC FF FF 45 4e 44',
+        reply: '58 46 5a 11 05 04 D8 B0 4C D4 AC AC FF FF 45 4e 44'
+    },
+    type3: {
+        send : '58 46 5a 11 05 05 D8 B0 4C D4 AC AC FF FF 45 4e 44',
+        reply: '58 46 5a 11 05 06 D8 B0 4C D4 AC AC FF FF 45 4e 44'
+    },
+    type4: {
+        send : '58 46 5a 11 05 07 D8 B0 4C D4 AC AC FF FF 45 4e 44',
+        reply: '58 46 5a 11 05 08 D8 B0 4C D4 AC AC FF FF 45 4e 44'
+    },
+    //关闭按摩
+    close: {
+        send : '58 46 5a 11 05 D0 D8 B0 4C D4 AC AC FF FF 45 4e 44',
+        reply: '58 46 5a 11 05 D1 D8 B0 4C D4 AC AC FF FF 45 4e 44'
+    }
+}
+
+Page({
     /**
      * 页面的初始数据
      */
@@ -9,55 +35,62 @@
         handles: [
             {
                 type: 'type1',
-                name: '轻松1',
+                name: '轻松',
                 icon: 'relax'
             },
             {
                 type: 'type2',
-                name: '轻松2',
+                name: '舒适',
                 icon: 'toning'
             },
             {
                 type: 'type3',
-                name: '轻松3',
+                name: '轻松',
                 icon: 'relax'
             },
             {
                 type: 'type4',
-                name: '轻松4',
+                name: '舒适',
                 icon: 'toning'
             }
         ],
         modes: [
             {
-                type: 'knead1',
+                type: 'knead',
                 name: '按摩',
             },
             {
-              type: 'knead2',
-              name: '通风',
+                type: 'aeration',
+                name: '通风',
             },
             {
-              type: 'knead3',
-              name: '加热',
+                type: 'warm',
+                name: '加热',
             }
         ],
         currType: 'type1',
-        currModeType: 'knead1'
+        currModeType: 'knead'
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
+    onReady: function (options) {
+        //初始化socket类
+        this.socket = new zhc.socket({
+            url: 'wss://yg2wkyhf.ws.qcloud.la',
+            message: this.message
+        });
+        //打开连接
+        this.socket.open();
 
+        // setInterval(function(){
+        //     sk.send('gezg ' + Math.round(Math.random() * 0xFFFFFF).toString());
+        // }, 2000);
+        
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
+    message(res){
+        console.log(res)
+    },
+    sendSocket(){
+        this.socket.send(modes[this.data.currType].send);
     },
     /**
      * 选择模式
@@ -72,7 +105,8 @@
         }else{
             this.setData({
                 currType: currType
-            })
+            });
+            this.sendSocket();
         }
     },
     /**
@@ -83,14 +117,6 @@
             luminous: !this.data.luminous
         })
     },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
     /**
      * 生命周期函数--监听页面隐藏
      */
@@ -98,31 +124,13 @@
 
     },
 
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
+    getMode(){
 
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
 
     },
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function () {
-
-    }
-    })
+    onShareAppMessage: zhc.shareAppMessage
+})

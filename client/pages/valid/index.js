@@ -1,5 +1,6 @@
 var waves = require('../../vendor/siriwave.js');
 var util = require('../../utils/util.js');
+var zhc = require('../../vendor/zhc.js');
 const App = getApp();
 // pages/phone/index.js
 Page({
@@ -120,5 +121,6 @@ Page({
     },
     onUnload: function () {
         clearInterval(this.interval)
-    }
+    },
+    onShareAppMessage: zhc.shareAppMessage
 })

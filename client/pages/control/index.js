@@ -1,5 +1,7 @@
 const socketOpen = require('../../utils/socket.js');
 const util = require('../../utils/util.js');
+var zhc = require('../../vendor/zhc.js');
+
 
 let addState = false, messageQueue = [];
 
@@ -129,5 +131,6 @@ Page({
         this.setData({
             txt: messageQueue.join('\n')
         });
-    }
+    },
+    onShareAppMessage: zhc.shareAppMessage
 })

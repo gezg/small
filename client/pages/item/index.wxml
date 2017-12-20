@@ -9,22 +9,31 @@
                     </view>
                 </view>
             </view>
-            <view class='card-btns'>
-                <view class="card-wrap" wx:for="{{handles}}" wx:for-item="handle" wx:key="handle.type">
-                    <view class="card-btn {{handle.type == currType ? 'active' : ''}}" bindtap='selectType' data-type="{{handle.type}}">
-                        <view class="card-icon iconfont icon-{{handle.icon}}"></view>
-                        <text class="card-text">{{handle.name}}</text>
+            <view class="sheet-tab {{ currModeType == 'knead'? '' : 'hide'}}">
+                <view class='card-btns'>
+                    <view class="card-wrap" wx:for="{{handles}}" wx:for-item="handle" wx:key="handle.type">
+                        <view class="card-btn {{handle.type == currType ? 'active' : ''}}" bindtap='selectType' data-type="{{handle.type}}">
+                            <view class="card-icon iconfont icon-{{handle.icon}}"></view>
+                            <text class="card-text">{{handle.name}}</text>
+                        </view>
                     </view>
                 </view>
+                <view class="seat-container seat-bg {{ luminous ? 'active' : ''}}">
+                    <view class="circle left-top"></view>
+                    <view class="circle left-bottom"></view>
+                    <view class="circle right-top"></view>
+                    <view class="circle right-bottom"></view>
+                </view>
+                <view class="seat-placehoder"></view>
             </view>
-            <view class="seat-container seat-bg {{ luminous ? 'active' : ''}}">
-                <view class="circle left-top"></view>
-                <view class="circle left-bottom"></view>
-                <view class="circle right-top"></view>
-                <view class="circle right-bottom"></view>
+            <view class="sheet-tab {{ currModeType == 'aeration'? '' : 'hide'}}">
+                 <image class="img-tab" src='http://47.94.148.33/images/aeration.gif'></image>
             </view>
-            <view class="seat-placehoder"></view>
+            <view class="sheet-tab {{ currModeType == 'warm'? '' : 'hide'}}">
+                <image class="img-tab" src='http://47.94.148.33/images/warm.gif'></image>
+            </view>
+            <view class="seat-placehoder {{ currModeType != 'knead'? '' : 'hide'}}"></view>
         </view> 
-        <button  class="footer-btn" disabled="{{disabled}}" bindtap="toggleLuminous"> {{luminous ? "停止按摩" : "启动按摩"}} </button>
+        <button  class="footer-btn {{ currModeType == 'knead'? '' : 'hide'}}" bindtap="toggleLuminous"> {{luminous ? "停止按摩" : "启动按摩"}} </button>
     </view>
 </gezg>

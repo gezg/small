@@ -39,45 +39,9 @@ var showModel = (title, content) => {
     })
 }
 
-var getAuthorization = () => {
-  return new Promise((resolve, reject) => {
-    wx.login({
-      success: function (loginResult) {
-        console.log(loginResult)
-        wx.request({
-          //获取openid接口  
-          url: 'https://api.weixin.qq.com/sns/jscode2session',
-          method: 'GET',
-          data: {
-            appid: 'wxf830d19953e019aa',
-            secret: 'e9862c4d9850ea9a96e5a8266167874d',
-            js_code: loginResult.code,
-            grant_type: 'authorization_code'
-          },
-          success: function (res) {
-            if (res.statusCode == 200){
-              resolve(res.data);
-            }else{
-              reject('重新登录');
-            }
-          },
-          fail: function (userError) {
-            reject('获取openid失败');
-          }
-        })
-      },
-      fail: function (userError) {
-        reject('请检查网络状态2');
-      }
-    });
-  });
- 
-}
-
 module.exports = { 
   formatTime, 
   showBusy, 
   showSuccess, 
-  showModel, 
-  getAuthorization
+  showModel
 }

@@ -1,4 +1,7 @@
 // pages/scanning/index.js
+
+var zhc = require('../../vendor/zhc.js');
+
 Page({
 
     /**
@@ -42,5 +45,6 @@ Page({
         //         })
         //     }
         // })
-    }
+    },
+    onShareAppMessage: zhc.shareAppMessage
 })

@@ -1,5 +1,6 @@
 var waves = require('../../vendor/siriwave.js');
 var util = require('../../utils/util.js');
+var zhc = require('../../vendor/zhc.js');
 var qcloud = require('../../vendor/wafer2-client-sdk/index');
 
 
@@ -21,7 +22,7 @@ Page({
      */
     onLoad: function (options) {
       //获取用户微信openid
-      util.getAuthorization().then((data)=>{
+        zhc.getAuthorization().then((data)=>{
         util.showSuccess('获取openid成功');
         App.globalData.openid = data.openid;
         App.globalData.session_key = data.session_key;
@@ -108,13 +109,5 @@ Page({
     onUnload: function () {
         clearInterval(this.interval)
     },
-    onShareAppMessage: function(){
-        return {
-            title: '自定义转发标题',
-            path: 'pages/valid/index',
-            success: function (res) {
-                util.showSuccess('转发成功');
-            }
-        }
-    }
+    onShareAppMessage: zhc.shareAppMessage
 })
