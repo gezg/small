@@ -121,6 +121,9 @@ module.exports = {
         });
 
     },
+    /**
+     * 分享公共设置
+     */
     shareAppMessage: (options)=>{
         return options ? options : {
             title: '自定义转发标题',
@@ -130,5 +133,8 @@ module.exports = {
             }
         }
     },
+    /**
+     * socket类
+     */
     socket: ZhcSocket
 };

@@ -71,7 +71,6 @@ Page({
         currType: 'type1',
         currModeType: 'knead'
     },
-
     onReady: function (options) {
         //初始化socket类
         this.socket = new zhc.socket({
@@ -86,8 +85,11 @@ Page({
         // }, 2000);
         
     },
-    message(res){
-        console.log(res)
+    message(data){
+        console.log(data)
+        if (/^58 46 5a.*45 4e 44$/gi.test(data)){
+            console.log('通过验证')
+        }
     },
     sendSocket(){
         this.socket.send(modes[this.data.currType].send);

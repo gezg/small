@@ -16,6 +16,7 @@ Page({
         txt: [],
         dis: ''
     },
+
     onReady() {
         this.socket = socketOpen('ws://www.gezg.top', {
             autoConnect: false
