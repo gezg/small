@@ -6,24 +6,17 @@ let addState = false, socketMsgQueue = [];
 class ZhcSocket {
     constructor(option){
         this.option = Object.assign({
-            url: 'ws://47.94.148.33:8080'
+            url: 'wss://www.gezg.top'
         }, option || {})
-        wx.connectSocket({
-            url: this.option.url,
-            success(){
-                console.log("成功")
-            },
-            fail(){
-                console.log("失败")
-            },
-            complete(){
-                console.log("完成");
-            }
-        })
-        this.socketStatus = 'ready';
     }
+
     //打开socket
     open(){
+        wx.connectSocket({
+            url: this.option.url
+        });
+
+        this.socketStatus = 'ready';
         util.showBusy('Socket连接中...')
         this.on();
     }
@@ -56,18 +49,27 @@ class ZhcSocket {
             for (var i = 0; i < socketMsgQueue.length; i++) {
                 _this.send(socketMsgQueue[i])
             }
-            socketMsgQueue = []
+            socketMsgQueue = [];
+            if (_this.option.success) {
+                _this.option.success();
+            }
         });
 
         //连接失败
         wx.onSocketError(function (res) {
             util.showSuccess('连接失败');
             _this.socketStatus = 'connect_error';
+            if (_this.option.fail) {
+                _this.option.fail('连接失败');
+            }
         })
         //关闭
         wx.onSocketClose(function (res) {
-            util.showSuccess('连接失败');
+            util.showSuccess('连接关闭');
             _this.socketStatus = 'disconnect';
+            if (_this.option.fail) {
+                _this.option.fail('连接关闭');
+            }
         })
         //message
         wx.onSocketMessage(function (res) {

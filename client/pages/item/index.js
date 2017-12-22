@@ -23,7 +23,15 @@ const modes = {
     close: {
         send : '58 46 5a 11 05 D0 D8 B0 4C D4 AC AC FF FF 45 4e 44',
         reply: '58 46 5a 11 05 D1 D8 B0 4C D4 AC AC FF FF 45 4e 44'
-    }
+    },
+    aeration: {
+        send : '58 46 5a 11 05 D0 D8 B0 4C D4 AC AC FF FF 45 4e 44',
+        reply: '58 46 5a 11 05 D1 D8 B0 4C D4 AC AC FF FF 45 4e 44'
+    },
+    warm: {
+        send : '58 46 5a 11 05 D0 D8 B0 4C D4 AC AC FF FF 45 4e 44',
+        reply: '58 46 5a 11 05 D1 D8 B0 4C D4 AC AC FF FF 45 4e 44'
+    },
 }
 
 Page({
@@ -74,26 +82,52 @@ Page({
     onReady: function (options) {
         //初始化socket类
         this.socket = new zhc.socket({
-            url: 'wss://yg2wkyhf.ws.qcloud.la',
-            message: this.message
+            //url: 'wss://yg2wkyhf.ws.qcloud.la',
+            //url: 'wss://www.gezg.top',
+            //url: 'ws://localhost:3000',
+            message: this.message,
+            fail: this.socketClose
         });
         //打开连接
         this.socket.open();
 
-        // setInterval(function(){
-        //     sk.send('gezg ' + Math.round(Math.random() * 0xFFFFFF).toString());
-        // }, 2000);
-        
+        this.controllState = '';
+
+        this.controllMode = 'type1';
+
     },
     message(data){
-        console.log(data)
-        if (/^58 46 5a.*45 4e 44$/gi.test(data)){
-            console.log('通过验证')
+        if (/^58 46 5a.*45 4e 44$/gi.test(String(data))){
+            util.showSuccess('更换模式成功');
+        }else{
+            util.showSuccess(data);
         }
     },
+    /**
+     * 发送消息
+     */
     sendSocket(){
-        this.socket.send(modes[this.data.currType].send);
+        try{
+            this.controllState = modes[this.controllMode].reply;
+            this.socket.send(modes[this.controllMode].send);
+        }catch(e){}
     },
+    /**
+     * 关闭连接
+     */
+    socketClose(msg){
+        let _this = this;
+        wx.showModal({
+            msg,
+            content: '是否重新连接 ?',
+            success: function (res) {
+                if (res.confirm) {
+                    _this.socket.open();
+                }
+            }
+        })
+    },
+
     /**
      * 选择模式
      */
@@ -101,13 +135,29 @@ Page({
         let currType = event.currentTarget.dataset.type;
         let ctype = event.currentTarget.dataset.mode;
         if (ctype == 'mode'){
+            if (this.data.currModeType == currType) {
+                return;
+            }
             this.setData({
               currModeType: currType
-            })
+            });
+            if (currType == 'knead'){
+                this.setData({
+                    currType: 'type1'
+                });
+                this.controllMode = this.data.currType;
+            }else{
+                this.controllMode = this.data.currModeType;
+            }
+            this.sendSocket();
         }else{
+            if (this.data.currType == currType) {
+                return;
+            }
             this.setData({
                 currType: currType
             });
+            this.controllMode = this.data.currType;
             this.sendSocket();
         }
     },

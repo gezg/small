@@ -27,10 +27,10 @@
                 <view class="seat-placehoder"></view>
             </view>
             <view class="sheet-tab {{ currModeType == 'aeration'? '' : 'hide'}}">
-                 <image class="img-tab" src='http://47.94.148.33/images/aeration.gif'></image>
+                 <image class="img-tab" src='https://www.gezg.top/images/aeration.gif'></image>
             </view>
             <view class="sheet-tab {{ currModeType == 'warm'? '' : 'hide'}}">
-                <image class="img-tab" src='http://47.94.148.33/images/warm.gif'></image>
+                <image class="img-tab" src='https://www.gezg.top/images/warm.gif'></image>
             </view>
             <view class="seat-placehoder {{ currModeType != 'knead'? '' : 'hide'}}"></view>
         </view> 
